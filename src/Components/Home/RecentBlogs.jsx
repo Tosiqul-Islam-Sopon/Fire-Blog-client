@@ -7,8 +7,8 @@ const RecentBlogs = () => {
     const axiosBase = useAxiosBase();
     const { data, isError, isLoading, error } = useQuery({
         queryKey: ['latestBlogs'],
-        queryFn: () => {
-            return axiosBase.get("/latestBlogs")
+        queryFn: async() => {
+            return await axiosBase.get("/latestBlogs")
         }
     });
     if (isLoading) {

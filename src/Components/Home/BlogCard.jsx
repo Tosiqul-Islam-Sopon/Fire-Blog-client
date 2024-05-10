@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { FiArrowRight } from 'react-icons/fi';
+import { MdCategory } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 const BlogCard = ({ blog }) => {
@@ -9,9 +10,9 @@ const BlogCard = ({ blog }) => {
             <img src={img} alt={title} className="w-full h-56 object-cover object-center" />
             <div className="p-4 flex-1 flex flex-col justify-between">
                 <div className='space-y-3'>
-                    <h2 className="text-xl font-bold text-gray-800">{title}</h2>
+                    <h2 className="text-xl font-bold text-gray-800 text-justify">{title}</h2>
                     <p className="text-sm text-gray-600">{shortDescription}</p>
-                    <p className=" text-gray-500 uppercase font-semibold">{category}</p>
+                    <p className=" text-gray-500 uppercase font-semibold flex items-center gap-2"><MdCategory /> {category}</p>
                 </div>
                 <div className="mt-4 flex justify-between items-center">
                     <Link to={`/blog/${_id}`} className="flex items-center">
