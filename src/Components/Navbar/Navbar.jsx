@@ -1,6 +1,6 @@
 
 import { BsFire } from 'react-icons/bs';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     const links = <>
@@ -25,11 +25,36 @@ const Navbar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                   {links}
+                    {links}
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <ul className="menu menu-horizontal px-1">
+                    <li>
+                        <details>
+                            <summary>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-14 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+                            </summary>
+                            <ul className="p-2 bg-[#101820] rounded-t-none ">
+                                <li><Link to={'/login'}><button className='hover:bg-[#FF0000] p-1 rounded-xl'>Login</button></Link></li>
+                                <li><Link to={'/register'}><button className='hover:bg-[#FF0000] p-1 rounded-xl'>Register</button></Link></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+                <ul className="menu menu-horizontal px-1">
+                    {/* <li>
+                        <details>
+                            <summary>
+                                Parent
+                            </summary>
+                            <ul className="p-2 bg-black text-red-500 rounded-t-none">
+                                <li><a>Link 1</a></li>
+                                <li><a>Link 2</a></li>
+                            </ul>
+                        </details>
+                    </li> */}
+                </ul>
             </div>
         </div>
     );
