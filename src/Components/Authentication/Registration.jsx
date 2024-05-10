@@ -41,9 +41,12 @@ const Registration = () => {
                         .then(res => {
                             console.log(res);
                             Swal.fire({
-                                title: "Welcome to EuropeOdyssey",
-                                text: "Registration Successful",
-                                icon: "success"
+                                position: "center",
+                                icon: "success",
+                                title: "Welcome to Fire Blog",
+                                text: "Registration Successfully",
+                                showConfirmButton: false,
+                                timer: 1500
                             });
                             // navigate(location?.state ? location.state : "/");
                         })

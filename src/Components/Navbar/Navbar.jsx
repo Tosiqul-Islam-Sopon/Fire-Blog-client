@@ -1,8 +1,12 @@
 
+import { useContext } from 'react';
 import { BsFire } from 'react-icons/bs';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../Providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to={"/addblog"} >Add Blog</NavLink></li>
@@ -10,6 +14,28 @@ const Navbar = () => {
         <li><NavLink to={`/featuredblogs`}>Featured Blogs</NavLink></li>
         <li><NavLink to={`/wishlist`}>Wishlist</NavLink></li>
     </>
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                // console.log(res);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Log Out Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+            .catch(error => {
+                // console.error(error.message);
+                Swal.fire({
+                    title: "OPPS!!!",
+                    text: `${error.message}`,
+                    icon: "error"
+                })
+            })
+    }
     return (
         <div className="navbar bg-[#101820] text-[#FBEAEB]">
             <div className="navbar-start">
@@ -29,31 +55,33 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+                {
+                    user?.photoURL && <div className="avatar tooltip tooltip-bottom" data-tip={user.displayName}>
+                        <div className="w-16 rounded-full border-red-600 border-2">
+                            <img src={user.photoURL} />
+                        </div>
+                    </div>
+                }
                 <ul className="menu menu-horizontal px-1">
                     <li>
                         <details>
                             <summary>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-14 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
                             </summary>
-                            <ul className="p-2 bg-[#101820] rounded-t-none ">
-                                <li><Link to={'/login'}><button className='hover:bg-[#FF0000] p-1 rounded-xl'>Login</button></Link></li>
-                                <li><Link to={'/register'}><button className='hover:bg-[#FF0000] p-1 rounded-xl'>Register</button></Link></li>
-                            </ul>
+                            {
+                                user ? <ul className="p-2 bg-[#101820] rounded-t-none ">
+                                    <li><button onClick={handleLogOut} className='hover:bg-[#FF0000] p-1 rounded-xl'>Log Out</button></li>
+
+                                </ul> :
+                                    <>
+                                        <ul className="p-2 bg-[#101820] rounded-t-none ">
+                                            <li><Link to={'/login'}><button className='hover:bg-[#FF0000] p-1 rounded-xl'>Login</button></Link></li>
+                                            <li><Link to={'/register'}><button className='hover:bg-[#FF0000] p-1 rounded-xl'>Register</button></Link></li>
+                                        </ul>
+                                    </>
+                            }
                         </details>
                     </li>
-                </ul>
-                <ul className="menu menu-horizontal px-1">
-                    {/* <li>
-                        <details>
-                            <summary>
-                                Parent
-                            </summary>
-                            <ul className="p-2 bg-black text-red-500 rounded-t-none">
-                                <li><a>Link 1</a></li>
-                                <li><a>Link 2</a></li>
-                            </ul>
-                        </details>
-                    </li> */}
                 </ul>
             </div>
         </div>
