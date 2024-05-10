@@ -11,6 +11,7 @@ import ErrorPage from './Components/Error Page/ErrorPage';
 import Login from './Components/Authentication/Login';
 import AuthProvider from './Components/Providers/AuthProvider';
 import Registration from './Components/Authentication/Registration';
+import AddBlog from './Components/Add Blog/AddBlog';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration></Registration>
+      },
+      {
+        path: "/addblog",
+        element: <AddBlog></AddBlog>
       }
     ],
   },
