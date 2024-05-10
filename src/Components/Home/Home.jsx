@@ -1,9 +1,11 @@
 import Banner from "./Banner";
+import RecentBlogs from "./RecentBlogs";
 
 const Home = () => {
     return (
-        <div className="bg-[#101820]">
+        <div className="">
             <Banner></Banner>
+            <RecentBlogs></RecentBlogs>
         </div>
     );
 };
