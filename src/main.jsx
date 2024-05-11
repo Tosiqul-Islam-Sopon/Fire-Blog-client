@@ -17,6 +17,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import BlogDetails from './Components/Blog Details/BlogDetails';
+import AllBlogs from './Components/All Blogs/AllBlogs';
 
 const queryClient = new QueryClient()
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
         path: "/blog/:id",
         element: <BlogDetails></BlogDetails>,
         loader: ({params}) => fetch(`http://localhost:5000/comments/${params.id}`)
+      },
+      {
+        path: "/allblogs",
+        element: <AllBlogs></AllBlogs>
       }
     ],
   },
