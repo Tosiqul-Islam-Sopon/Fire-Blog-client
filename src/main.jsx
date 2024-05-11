@@ -20,6 +20,7 @@ import BlogDetails from './Components/Blog Details/BlogDetails';
 import AllBlogs from './Components/All Blogs/AllBlogs';
 import FeaturedBlogs from './Components/Featured Blogs/FeaturedBlogs';
 import Wishlist from './Components/Wishlist/Wishlist';
+import UpdateBlog from './Components/Update Blog/UpdateBlog';
 
 const queryClient = new QueryClient()
 
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
         path: "/wishlist/:email",
         element: <Wishlist></Wishlist>,
         loader: ({params}) => fetch(`http://localhost:5000/wishlists/${params.email}`)
+      },
+      {
+        path: "/updateBlog/:id",
+        element: <UpdateBlog></UpdateBlog>,
+        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
       }
     ],
   },

@@ -13,9 +13,9 @@ const BlogCard = ({ blog, handleRemoveWishlist }) => {
     const location = useLocation();
     const { user } = useContext(AuthContext);
 
-    const wishlistUserName = user.displayName;
-    const wishlistUserEmail = user.email;
-    const wishlistUserImg = user.photoURL;
+    const wishlistUserName = user?.displayName;
+    const wishlistUserEmail = user?.email;
+    const wishlistUserImg = user?.photoURL;
 
     const handleAddWishlist = () => {
         const wishlist = {

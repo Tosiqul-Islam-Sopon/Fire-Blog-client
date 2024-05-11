@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { Link, useLoaderData, useParams } from 'react-router-dom';
 import useAxiosBase from '../Hooks/useAxiosBase';
 import { useQuery } from '@tanstack/react-query';
 import Skeleton from 'react-loading-skeleton';
@@ -37,7 +37,6 @@ const BlogDetails = () => {
     const blog = data.data;
     const { _id, title, img, shortDescription, category, longDescription, uploadDateTime, uploaderName, uploaderEmail } = blog;
 
-    // Function to handle comment submission
     const handleSubmit = (e) => {
         e.preventDefault();
         const comment = e.target.comment.value;
@@ -52,8 +51,6 @@ const BlogDetails = () => {
             })
             .catch(error => console.log(error));
         setComments([...comments, commentOb]);
-        // Clear the comment textarea
-        // setComment('');
     };
 
     return (
@@ -73,6 +70,7 @@ const BlogDetails = () => {
             {
                 uploaderEmail === user.email ? <>
                     <div className='max-w-3xl mx-auto mt-8 text-center font-bold'>
+                        <Link to={`/updateBlog/${_id}`}><button className='btn bg-red-500 text-white mb-5 hover:bg-transparent hover:text-black'>Update Blog</button></Link>
                         <p className='text-red-600'>**Can not comment on own blog</p>
                     </div>
                 </>
