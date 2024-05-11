@@ -43,7 +43,7 @@ const AddBlog = () => {
                     title: `Blog Adding failed`,
                     text: `${error?.message}`,
                     showConfirmButton: true,
-                    timer: 1500
+                    // timer: 1500
                 });
             })
     };

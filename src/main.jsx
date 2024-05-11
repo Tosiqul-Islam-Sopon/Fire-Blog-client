@@ -23,6 +23,7 @@ import Wishlist from './Components/Wishlist/Wishlist';
 
 const queryClient = new QueryClient()
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,8 +60,9 @@ const router = createBrowserRouter([
         element: <FeaturedBlogs></FeaturedBlogs>
       },
       {
-        path: "/wishlist",
-        element: <Wishlist></Wishlist>
+        path: "/wishlist/:email",
+        element: <Wishlist></Wishlist>,
+        loader: ({params}) => fetch(`http://localhost:5000/wishlists/${params.email}`)
       }
     ],
   },
