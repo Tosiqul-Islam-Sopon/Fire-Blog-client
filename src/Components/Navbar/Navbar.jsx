@@ -11,7 +11,7 @@ const Navbar = () => {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to={"/addblog"} >Add Blog</NavLink></li>
         <li><NavLink to={"/allblogs"} >All Blogs</NavLink></li>
-        <li><NavLink to={`/featuredblogs`}>Featured Blogs</NavLink></li>
+        <li><NavLink to={`/featureBlogs`}>Featured Blogs</NavLink></li>
         <li><NavLink to={`/wishlist`}>Wishlist</NavLink></li>
     </>
 

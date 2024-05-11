@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { FiArrowRight } from 'react-icons/fi';
 import { MdCategory } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const BlogCard = ({ blog }) => {
     const { _id, title, img, shortDescription, category } = blog;
+    const location = useLocation();
+    console.log(location);
     return (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-gray-200 flex flex-col">
             <img src={img} alt={title} className="w-full h-56 object-cover object-center" />

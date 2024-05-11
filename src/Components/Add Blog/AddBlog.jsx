@@ -7,6 +7,7 @@ const AddBlog = () => {
     const {user} = useContext(AuthContext);
     const uploaderName = user.displayName;
     const uploaderEmail = user.email;
+    const uploaderImg = user.photoURL;
     const currentDate = new Date();
     const uploadDateTime = currentDate.toLocaleString();
     const axiosBase = useAxiosBase();
@@ -19,7 +20,7 @@ const AddBlog = () => {
         const shortDescription = e.target.shortDescription.value;
         const longDescription = e.target.longDescription.value;
         const blog = {
-            title, img, category, shortDescription, longDescription, uploadDateTime, uploaderName, uploaderEmail
+            title, img, category, shortDescription, longDescription, uploadDateTime, uploaderName, uploaderEmail, uploaderImg
         }
 
         axiosBase.post("/addBlog", blog)

@@ -18,6 +18,8 @@ import {
 } from '@tanstack/react-query'
 import BlogDetails from './Components/Blog Details/BlogDetails';
 import AllBlogs from './Components/All Blogs/AllBlogs';
+import FeaturedBlogs from './Components/Featured Blogs/FeaturedBlogs';
+import Wishlist from './Components/Wishlist/Wishlist';
 
 const queryClient = new QueryClient()
 
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: "/allblogs",
         element: <AllBlogs></AllBlogs>
+      },
+      {
+        path: "/featureBlogs",
+        element: <FeaturedBlogs></FeaturedBlogs>
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist></Wishlist>
       }
     ],
   },

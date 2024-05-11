@@ -16,13 +16,15 @@ const Login = () => {
         const password = e.target.password.value;
         // console.log(email, password);
         logIn(email, password)
-            .then(result => {
+            .then(() => {
                 Swal.fire({
+                    position: "center",
+                    icon: "success",
                     title: "Welcome to Fire Blog",
                     text: "Login Successfully",
-                    icon: "success"
+                    showConfirmButton: false,
+                    timer: 1500
                 });
-                console.log(result);
             })
             .catch(error => {
                 Swal.fire({
