@@ -20,7 +20,7 @@ const BlogDetails = () => {
             return await axiosBase.get(`blog/${id}`);
         }
     })
-    
+
 
     if (isLoading || loading) {
         return <>
