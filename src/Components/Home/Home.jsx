@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import NewsLetter from "./NewsLetter";
 import RecentBlogs from "./RecentBlogs";
+import TechTrends from "./TechTrends";
 
 const Home = () => {
     return (
@@ -8,6 +9,7 @@ const Home = () => {
             <Banner></Banner>
             <RecentBlogs></RecentBlogs>
             <NewsLetter></NewsLetter>
+            <TechTrends></TechTrends>
         </div>
     );
 };

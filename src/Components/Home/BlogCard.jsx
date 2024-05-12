@@ -45,7 +45,7 @@ const BlogCard = ({ blog, handleRemoveWishlist }) => {
             })
     }
     return (
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-gray-200 flex flex-col">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-gray-200 flex flex-col transition duration-500 ease-in-out transform hover:-translate-y-2">
             <img src={img} alt={title} className="w-full h-56 object-cover object-center" />
             <div className="p-4 flex-1 flex flex-col justify-between">
                 <div className='space-y-3'>
