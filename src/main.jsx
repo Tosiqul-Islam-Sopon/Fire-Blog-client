@@ -21,6 +21,7 @@ import AllBlogs from './Components/All Blogs/AllBlogs';
 import FeaturedBlogs from './Components/Featured Blogs/FeaturedBlogs';
 import Wishlist from './Components/Wishlist/Wishlist';
 import UpdateBlog from './Components/Update Blog/UpdateBlog';
+import Replies from './Components/Replies/Replies';
 
 const queryClient = new QueryClient()
 
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
         path: "/updateBlog/:id",
         element: <UpdateBlog></UpdateBlog>,
         loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+      },
+      {
+        path: "/replies/:id",
+        element: <Replies></Replies>
       }
     ],
   },
