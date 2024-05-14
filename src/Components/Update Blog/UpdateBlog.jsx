@@ -2,17 +2,47 @@ import { useContext } from "react";
 import useAxiosBase from "../Hooks/useAxiosBase";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const UpdateBlog = () => {
     const { user } = useContext(AuthContext);
-    const loadedBlog = useLoaderData();
+    const axiosBase = useAxiosBase();
+    const {id} = useParams();
+    const navigate = useNavigate();
+
+    const {data, isLoading, isError, error} = useQuery({
+        queryKey: [`/blog/${id}`],
+        queryFn: async() => {
+            return await axiosBase.get(`/blog/${id}`)
+        }
+    })
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center mt-10">
+                <div>
+                    <span className="loading loading-ring loading-xs"></span>
+                    <span className="loading loading-ring loading-sm"></span>
+                    <span className="loading loading-ring loading-md"></span>
+                    <span className="loading loading-ring loading-lg"></span>
+                </div>
+            </div>
+        );
+    }
+
+    if (isError) {
+        console.log(error);
+        return <h1 className="text-4xl">Error</h1>;
+    }
+
+    const loadedBlog = data.data;
     const { _id, title, img, shortDescription, category, longDescription, uploadDateTime } = loadedBlog;
     const uploaderName = user.displayName;
     const uploaderEmail = user.email;
     const uploaderImg = user.photoURL;
-    const axiosBase = useAxiosBase();
-    const navigate = useNavigate();
+    
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,7 +54,6 @@ const UpdateBlog = () => {
         const newBlog = {
             title, img, category, shortDescription, longDescription, uploadDateTime, uploaderName, uploaderEmail, uploaderImg
         }
-        // console.log(newBlog);
 
         axiosBase.patch(`/updateBlog/${_id}`, newBlog)
             .then(res => {

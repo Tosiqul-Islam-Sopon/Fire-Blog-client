@@ -1,27 +1,42 @@
-
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosBase from '../Hooks/useAxiosBase';
 import ReplyCard from './ReplyCard';
 import { AuthContext } from '../Providers/AuthProvider';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import Skeleton from 'react-loading-skeleton';
 
 const Replies = () => {
     const { user } = useContext(AuthContext);
     const axiosBase = useAxiosBase();
     const { id } = useParams();
-    const [question, setQuestion] = useState(null);
-    const [replies, setReplies] = useState([]);
+    const queryClient = useQueryClient();
     const [newReply, setNewReply] = useState("");
 
-    useEffect(() => {
+    const { data: question, isLoading: questionLoading, isError: questionError } = useQuery({
+        queryKey: ['question', id],
+        queryFn: async () => {
+            const res = await axiosBase.get(`/question/${id}`);
+            return res.data;
+        },
+    });
 
-        axiosBase.get(`/question/${id}`)
-            .then(res => setQuestion(res.data));
+    const { data: replies = [], isLoading: replyLoading, isError: replyError } = useQuery({
+        queryKey: ['replies', id],
+        queryFn: async () => {
+            const res = await axiosBase.get(`/replies/${id}`);
+            return res.data;
+        },
+    });
 
-        axiosBase.get(`/replies/${id}`)
-            .then(res => setReplies(res.data));
-
-    }, [axiosBase, id]);
+    if (questionLoading || replyLoading) {
+        return <Skeleton count={10} />;
+      }
+    
+      if (questionError || replyError) {
+        // console.log(error);
+        return <h1 className="text-4xl">Error</h1>;
+      }
 
     const handleReply = () => {
         if (newReply.trim() === "") return;
@@ -32,10 +47,13 @@ const Replies = () => {
             userName: user.displayName,
             userImg: user.photoURL
         }
-        setReplies([reply, ...replies]);
         setNewReply("");
 
         axiosBase.post(`/replies`, reply)
+            .then(() => {
+                queryClient.setQueryData(['replies', id], prevData => [reply, ...prevData]);
+            })
+            .catch(error => console.error(error));
     }
 
     return (

@@ -4,7 +4,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const AddBlog = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const uploaderName = user.displayName;
     const uploaderEmail = user.email;
     const uploaderImg = user.photoURL;
@@ -25,7 +25,7 @@ const AddBlog = () => {
 
         axiosBase.post("/addBlog", blog)
             .then(res => {
-                if (res.data.insertedId){
+                if (res.data.insertedId) {
                     Swal.fire({
                         position: "center",
                         icon: "success",

@@ -1,23 +1,24 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import useAxiosBase from "../Hooks/useAxiosBase";
 import { AiFillLike } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
 
 const DiscussionForum = () => {
     const { user } = useContext(AuthContext);
     const axiosBase = useAxiosBase();
-    const [questions, setQuestions] = useState([]);
+    const queryClient = useQueryClient();
     const [newQuestion, setNewQuestion] = useState("");
 
-    useEffect(() => {
-        axiosBase
-            .get("/questions")
-            .then((res) => {
-                setQuestions(res.data);
-            })
-            .catch((error) => console.error(error));
-    }, [axiosBase]);
+    const { data: questions = [], isLoading, isError, error } = useQuery({
+        queryKey: ['questions'],
+        queryFn: async () => {
+            const response = await axiosBase.get("/questions");
+            return response.data;
+        },
+    });
 
     const handleAskQuestion = () => {
         if (newQuestion.trim() === "") return;
@@ -28,26 +29,36 @@ const DiscussionForum = () => {
             userImg: user.photoURL,
             likes: 0,
             createdAt: new Date()
-        }
-        setQuestions([ question, ...questions]);
-                setNewQuestion("");
+        };
+
         axiosBase.post("/askQuestion", question)
-        
+            .then(() => {
+                queryClient.setQueryData(['questions'], prevData => [question, ...prevData]);
+                setNewQuestion("");
+            })
+            .catch(error => console.error(error));
     };
 
     const handleLikeQuestion = (id) => {
-
         axiosBase.patch(`/likeQuestion/${id}`)
             .then(() => {
-                const updatedQuestions = questions.map((question) => {
-                    if (question._id === id) {
-                        return { ...question, likes: question.likes + 1 };
-                    }
-                    return question;
-                });
-                setQuestions(updatedQuestions);
+                queryClient.setQueryData(['questions'], prevData =>
+                    prevData.map(question =>
+                        question._id === id ? { ...question, likes: question.likes + 1 } : question
+                    )
+                );
             })
+            .catch(error => console.error(error));
     };
+
+    if (isLoading) {
+        return <Skeleton count={10} />;
+    }
+
+    if (isError) {
+        console.log(error);
+        return <h1 className="text-4xl">Error</h1>;
+    }
 
     return (
         <div className="max-w-3xl mx-auto p-3 lg:p-0">
@@ -81,7 +92,6 @@ const DiscussionForum = () => {
                                     <button className="text-sm text-gray-500 mt-1">Replies</button>
                                 </Link>
                             </div>
-
                         </div>
                         <button
                             onClick={() => handleLikeQuestion(question._id)}

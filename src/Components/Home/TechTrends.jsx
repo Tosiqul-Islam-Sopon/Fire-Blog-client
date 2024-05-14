@@ -1,21 +1,30 @@
-import { useEffect, useState } from "react";
 import useAxiosBase from "../Hooks/useAxiosBase";
 import { motion } from 'framer-motion';
+import { useQuery } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
 
 const TechTrends = () => {
     const axiosBase = useAxiosBase();
-    const [techTrends, setTechTrends] = useState([]);
+    // const [techTrends, setTechTrends] = useState([]);
 
-    useEffect(() => {
-        axiosBase
-            .get("/techTrends")
-            .then((res) => {
-                setTechTrends(res.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, [axiosBase]);
+
+    const {data, isLoading, isError, error} = useQuery({
+        queryKey: ['techTrends'],
+        queryFn: async() =>{
+            return await axiosBase.get("/techTrends");
+        }
+    });
+
+    if (isLoading) {
+        return <Skeleton count={10} />;
+    }
+
+    if (isError) {
+        console.log(error);
+        return <h1 className="text-4xl">Error</h1>;
+    }
+
+    const techTrends = data.data;
 
     return (
         <section className="py-12 bg-gray-100">

@@ -5,13 +5,13 @@ import useAxiosBase from '../Hooks/useAxiosBase';
 
 const FeaturedBlogs = () => {
   const axiosBase = useAxiosBase();
-  // const [topPosts, setTopPosts] = useState([]);
+
   const { data, isError, isLoading, error } = useQuery({
     queryKey: 'featuredBlogs',
     queryFn: async () => {
       return await axiosBase.get("/allBlogs");
     }
-  })
+  });
 
   if (isLoading) {
     return <Skeleton count={10} />;
