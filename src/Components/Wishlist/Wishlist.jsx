@@ -74,7 +74,7 @@ const Wishlist = () => {
                 <h1 className="text-3xl font-bold mb-2">My Wishlist</h1>
                 <p className="text-gray-600">Explore and manage your wishlist. Save your favorite blogs to read later.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 mt-5">
                 {
                     wishlists.map(blog => <BlogCard
                         key={blog._id}

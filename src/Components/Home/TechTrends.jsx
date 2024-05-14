@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosBase from "../Hooks/useAxiosBase";
+import { motion } from 'framer-motion';
 
 const TechTrends = () => {
     const axiosBase = useAxiosBase();
@@ -29,7 +30,10 @@ const TechTrends = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {techTrends.map((trend) => (
-                        <div
+                        <motion.div
+                            whileHover={{ scale: 1.2 }}
+                            onHoverStart={() => { }}
+                            onHoverEnd={() => { }}
                             key={trend._id}
                             className="bg-white p-6 rounded-lg shadow-md transition duration-500 ease-in-out transform hover:-translate-y-2 hover:shadow-xl"
                         >
@@ -42,7 +46,7 @@ const TechTrends = () => {
                                 {trend.title}
                             </h3>
                             <p className="text-gray-600 text-justify">{trend.description}</p>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
