@@ -9,7 +9,7 @@ const Footer = () => {
                         <p className="text-xl font-bold"><span className="text-[#FF0000]">Fire</span>Blog</p>
                         <p className="mt-2 md:mt-0 md:ml-6">Stay updated with our latest news and articles.</p>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col lg:flex-row gap-5 lg:gap-0 justify-between items-center">
                         <div className="flex gap-3 mt-4 ">
                             <a href="#" className="text-gray-400 hover:text-gray-300 mr-4">About</a>
                             <a href="#" className="text-gray-400 hover:text-gray-300 mr-4">Contact</a>

@@ -39,7 +39,7 @@ const Replies = () => {
     }
 
     return (
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto p-3 lg:p-0">
             <div className="my-8">
                 <h1 className="text-3xl font-semibold mb-4">{question && question.question}</h1>
                 <p className="text-gray-500 mb-6">Asked by {question && question.userName}</p>

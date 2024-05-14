@@ -50,7 +50,7 @@ const AddBlog = () => {
 
     return (
         <div className="max-w-2xl mx-auto mt-10">
-            <h2 className="text-2xl font-bold mb-5">Add New Blog</h2>
+            <h2 className="text-2xl font-bold mb-5 ml-3 lg:ml-0">Add New Blog</h2>
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -87,9 +87,10 @@ const AddBlog = () => {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="category"
                         name="category"
+                        defaultValue={""}
                         required
                     >
-                        <option value="" disabled selected>Select category</option>
+                        <option value="" disabled>Select category</option>
                         <option value="Technology">Technology</option>
                         <option value="Travel">Travel</option>
                         <option value="Food">Food</option>

@@ -50,7 +50,7 @@ const DiscussionForum = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto p-3 lg:p-0">
             <h2 className="text-center text-3xl font-semibold text-gray-800 my-3">Discussion Forum</h2>
             <p className="text-gray-600 mb-6 text-center">Engage with other members of the community, ask questions, and share ideas.</p>
             {user && (

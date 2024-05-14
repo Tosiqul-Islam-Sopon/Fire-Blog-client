@@ -25,7 +25,7 @@ const RecentBlogs = () => {
     const blogs = data.data;
     return (
         <div className=" mt-10">
-            <div className="w-3/4 mx-auto text-center">
+            <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">
                 <h1 className="text-4xl font-bold mb-4">Latest Blogs</h1>
                 <p>Stay up to date with our latest blog posts. Explore a wide range of topics, from technology and travel to food and fashion. Whether you are looking for inspiration, information, or entertainment, our blog has something for everyone.</p>
             </div>

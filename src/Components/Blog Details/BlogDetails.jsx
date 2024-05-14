@@ -54,12 +54,12 @@ const BlogDetails = () => {
     };
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto py-8 px-3">
             <div className="max-w-3xl mx-auto">
                 <img src={img} alt="Blog Image" className="mb-4 rounded-xl" />
                 <h1 className="text-3xl font-bold mb-4 text-justify ">{title}</h1>
                 <p className="text-gray-600 mb-4">{shortDescription}</p>
-                <div className='flex justify-between py-3 border-y-2'>
+                <div className='flex flex-col lg:flex-row space-y-3 lg:space-y-0 justify-between py-3 border-y-2'>
                     <p className="text-gray-600"><span className='font-bold'>Uploaded by:</span> {uploaderName} </p>
                     <p className="text-gray-600"><span className='font-bold'>Uploaded in:</span> {uploadDateTime} </p>
                 </div>

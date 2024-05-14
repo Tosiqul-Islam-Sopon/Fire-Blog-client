@@ -24,7 +24,7 @@ const AllBlogs = () => {
             </div>
 
             <div className="max-w-3xl mx-auto mb-8">
-                <div className="flex items-center space-x-4 mb-4">
+                <div className="flex flex-col lg:flex-row gap-3 lg:gap-0 items-center space-x-4 mb-4">
                     <input
                         onChange={(e) => {
                             e.preventDefault();
