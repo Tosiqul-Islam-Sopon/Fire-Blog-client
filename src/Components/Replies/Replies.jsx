@@ -28,7 +28,7 @@ const Replies = () => {
         const reply = {
             questionId: id,
             reply: newReply,
-            useEmail: user.email,
+            userEmail: user.email,
             userName: user.displayName,
             userImg: user.photoURL
         }

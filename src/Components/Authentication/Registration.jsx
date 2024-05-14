@@ -2,14 +2,15 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import img from "../../assets/Images/register.jpg"
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Registration = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { createUser, setNameAndPhoto, googleSignIn } = useContext(AuthContext);
-
+    const location = useLocation();
+    const navigate = useNavigate();
     const validatePassword = (password) => {
         if (password.length < 6) {
             return "Password must be at least 6 characters long.";
@@ -48,7 +49,7 @@ const Registration = () => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            // navigate(location?.state ? location.state : "/");
+                            navigate(location?.state ? location.state : "/");
                         })
                         .catch(error => {
                             console.log(error);
@@ -85,7 +86,7 @@ const Registration = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                // navigate(location?.state ? location.state : "/");
+                navigate(location?.state ? location.state : "/");
             })
             .catch(error => {
                 Swal.fire({
@@ -143,16 +144,16 @@ const Registration = () => {
                         <div className="form-control mt-6">
                             <button className="btn bg-[#FF0000] text-white text-xl font-medium">Register</button>
                         </div>
-                        <div className="flex flex-col mt-8 space-y-3 w-full justify-center items-center">
-                            <p>Or Continue with</p>
-                            <div className="space-x-6">
-                                <button onClick={handleGoogleLogin} className="text-5xl"><FcGoogle /></button>
-                            </div>
-                        </div>
-                        <div className="mx-auto mb-5">
-                            <Link to="/login"><p>Already have an account? <span className="underline text-green-400">Login</span></p></Link>
-                        </div>
                     </form>
+                    <div className="flex flex-col space-y-3 w-full justify-center items-center">
+                        <p>Or Continue with</p>
+                        <div className="space-x-6">
+                            <button onClick={handleGoogleLogin} className="text-5xl"><FcGoogle /></button>
+                        </div>
+                    </div>
+                    <div className="mx-auto mb-5">
+                        <Link to="/login"><p>Already have an account? <span className="underline text-green-400">Login</span></p></Link>
+                    </div>
                 </div>
             </div>
         </div>

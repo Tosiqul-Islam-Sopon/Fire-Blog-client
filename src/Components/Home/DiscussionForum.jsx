@@ -23,7 +23,7 @@ const DiscussionForum = () => {
         if (newQuestion.trim() === "") return;
         const question = {
             question: newQuestion,
-            useEmail: user.email,
+            userEmail: user.email,
             userName: user.displayName,
             userImg: user.photoURL,
             likes: 0,

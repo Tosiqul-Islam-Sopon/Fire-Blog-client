@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/Images/login.jpg"
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../Providers/AuthProvider";
@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { logIn, googleSignIn } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleLogin = e => {
         e.preventDefault();
@@ -25,6 +27,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                navigate(location?.state ? location.state : "/");
             })
             .catch(error => {
                 Swal.fire({
@@ -47,11 +50,11 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                
-                // navigate(location?.state ? location.state : "/");
+
+                navigate(location?.state ? location.state : "/");
             })
             .catch(error => {
-                
+
                 Swal.fire({
                     title: "OPPS!!!",
                     text: `${error.message}`,
@@ -70,7 +73,7 @@ const Login = () => {
                 </div>
                 <div className="flex-1 card shrink-0 rounded-2xl bg-base-100">
 
-                    <form className="card-body" onSubmit={handleLogin}>
+                    <form className="p-5" onSubmit={handleLogin}>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -94,18 +97,18 @@ const Login = () => {
                         </div>
 
                         <div className="form-control mt-6">
-                            <button className="btn bg-[#FF0000] text-white text-xl font-medium">Login</button>
-                        </div>
-                        <div className="flex flex-col mt-8 space-y-3 w-full justify-center items-center">
-                            <p>Or Continue with</p>
-                            <div className="space-x-6">
-                                <button onClick={handleGoogleLogin} className="text-5xl"><FcGoogle /></button>
-                            </div>
-                        </div>
-                        <div className="mx-auto mb-5">
-                            <Link state={location?.state} to="/register"><p>Don&apos;t have an account? <span className="underline text-green-400">Register</span></p></Link>
+                            <button className="btn bg-[#FF0000] hover:bg-red-500 text-white text-xl font-medium">Login</button>
                         </div>
                     </form>
+                    <div className="flex m-0 flex-col space-y-3 w-full justify-center items-center">
+                        <p className="m-0">Or Continue with</p>
+                        <div className="space-x-6">
+                            <button onClick={handleGoogleLogin} className="text-5xl"><FcGoogle /></button>
+                        </div>
+                    </div>
+                    <div className="mx-auto mb-5">
+                        <Link state={location?.state} to="/register"><p>Don&apos;t have an account? <span className="underline text-green-400">Register</span></p></Link>
+                    </div>
                 </div>
             </div>
         </div>

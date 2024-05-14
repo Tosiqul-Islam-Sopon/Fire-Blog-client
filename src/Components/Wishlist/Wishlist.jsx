@@ -1,13 +1,44 @@
 import useAxiosBase from "../Hooks/useAxiosBase";
 import BlogCard from "../Home/BlogCard";
-import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
 
 const Wishlist = () => {
-    const loadedWishlists = useLoaderData();
-    const [wishlists, setWishlists] = useState(loadedWishlists);
+    const { user } = useContext(AuthContext);
+
+    const [wishlists, setWishlists] = useState([]);
+
     const axiosBase = useAxiosBase();
+
+    const { data, isError, isLoading, error } = useQuery({
+        queryKey: ['latestBlogs'],
+        queryFn: async () => {
+            return await axiosBase.get(`/wishlists/${user?.email}`)
+        },
+        enabled: !!user?.email,
+    });
+
+    useEffect(() => {
+        if (data) {
+            setWishlists(data.data);
+        }
+    }, [data]);
+
+    if (isLoading) {
+        return <>
+            <Skeleton count={10} />
+        </>
+    }
+    
+    if (isError) {
+        console.log(error);
+        return <>
+            <h1 className="text-4xl">Error</h1>
+        </>
+    }
 
     const handleRemoveWishlist = (id) => {
         axiosBase.delete(`/wishlist/${id}`)

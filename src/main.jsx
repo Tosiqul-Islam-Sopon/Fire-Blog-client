@@ -22,6 +22,7 @@ import FeaturedBlogs from './Components/Featured Blogs/FeaturedBlogs';
 import Wishlist from './Components/Wishlist/Wishlist';
 import UpdateBlog from './Components/Update Blog/UpdateBlog';
 import Replies from './Components/Replies/Replies';
+import PrivateRoute from './PrivateRoute';
 
 const queryClient = new QueryClient()
 
@@ -46,11 +47,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addblog",
-        element: <AddBlog></AddBlog>
+        element: <PrivateRoute><AddBlog></AddBlog></PrivateRoute>
       },
       {
         path: "/blog/:id",
-        element: <BlogDetails></BlogDetails>,
+        element: <PrivateRoute><BlogDetails></BlogDetails></PrivateRoute>,
         loader: ({params}) => fetch(`http://localhost:5000/comments/${params.id}`)
       },
       {
@@ -62,9 +63,8 @@ const router = createBrowserRouter([
         element: <FeaturedBlogs></FeaturedBlogs>
       },
       {
-        path: "/wishlist/:email",
-        element: <Wishlist></Wishlist>,
-        loader: ({params}) => fetch(`http://localhost:5000/wishlists/${params.email}`)
+        path: "/wishlist",
+        element: <PrivateRoute><Wishlist></Wishlist></PrivateRoute>,
       },
       {
         path: "/updateBlog/:id",

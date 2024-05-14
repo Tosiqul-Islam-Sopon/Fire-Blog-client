@@ -12,7 +12,7 @@ const Navbar = () => {
         <li><NavLink to={"/addblog"} >Add Blog</NavLink></li>
         <li><NavLink to={"/allblogs"} >All Blogs</NavLink></li>
         <li><NavLink to={`/featureBlogs`}>Featured Blogs</NavLink></li>
-        <li><NavLink to={`/wishlist/${user?.email}`}>Wishlist</NavLink></li>
+        <li><NavLink to={`/wishlist`}>Wishlist</NavLink></li>
     </>
 
     const handleLogOut = () => {
