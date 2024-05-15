@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import Skeleton from "react-loading-skeleton";
 
 const UpdateBlog = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const axiosBase = useAxiosBase();
     const {id} = useParams();
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const UpdateBlog = () => {
         }
     })
 
-    if (isLoading) {
+    if (isLoading || loading) {
         return (
             <div className="mt-10">
                 <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">

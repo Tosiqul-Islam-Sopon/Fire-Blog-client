@@ -1,20 +1,28 @@
 import useAxiosBase from "../Hooks/useAxiosBase";
 import BlogCard from "../Home/BlogCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
+import Skeleton from "react-loading-skeleton";
 
 const AllBlogs = () => {
     const axiosBase = useAxiosBase();
     const [searchText, setSearchText] = useState('');
     const [category, setCategory] = useState('');
     const [blogs, setBlogs] = useState([]);
-
+    const {loading} = useContext(AuthContext);
 
     useEffect(() => {
         axiosBase.get(`/allBlogs?title=${searchText}&category=${category}`)
             .then(data => setBlogs(data.data));
     }, [searchText, category, axiosBase]);
 
-
+    if (loading){
+        return(
+            <div className="p-4">
+                <Skeleton count={2} />
+            </div>
+        )
+    }
 
     return (
         <div>

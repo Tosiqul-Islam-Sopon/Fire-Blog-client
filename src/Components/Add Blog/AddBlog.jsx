@@ -2,15 +2,24 @@ import { useContext } from "react";
 import useAxiosBase from "../Hooks/useAxiosBase";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import Skeleton from "react-loading-skeleton";
 
 const AddBlog = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const uploaderName = user.displayName;
     const uploaderEmail = user.email;
     const uploaderImg = user.photoURL;
     const currentDate = new Date();
     const uploadDateTime = currentDate.toLocaleString();
     const axiosBase = useAxiosBase();
+
+    if (loading){
+        return(
+            <div>
+                <Skeleton count={2} />
+            </div>
+        );
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();

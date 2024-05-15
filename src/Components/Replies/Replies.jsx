@@ -7,7 +7,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Skeleton from 'react-loading-skeleton';
 
 const Replies = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const axiosBase = useAxiosBase();
     const { id } = useParams();
     const queryClient = useQueryClient();
@@ -29,7 +29,7 @@ const Replies = () => {
         },
     });
 
-    if (questionLoading || replyLoading) {
+    if (questionLoading || replyLoading || loading) {
         return (
             <div className="mt-10">
 

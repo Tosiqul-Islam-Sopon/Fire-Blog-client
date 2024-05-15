@@ -4,10 +4,19 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
+import Skeleton from 'react-loading-skeleton';
 
 const Navbar = () => {
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut, loading } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
+
+    if (loading){
+        return(
+            <div>
+                <Skeleton height={70} />
+            </div>
+        )
+    }
 
     const handleLogOut = () => {
         logOut()

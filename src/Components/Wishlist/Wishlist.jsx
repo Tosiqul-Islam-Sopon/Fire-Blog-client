@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import BlogCardSkeleton from "../Home/BlogCardSkeleton";
 
 const Wishlist = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
 
     const [wishlists, setWishlists] = useState([]);
 
@@ -27,7 +27,7 @@ const Wishlist = () => {
         }
     }, [data]);
 
-    if (isLoading) {
+    if (isLoading || loading) {
         return (
             <div className="mt-10">
                 <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">

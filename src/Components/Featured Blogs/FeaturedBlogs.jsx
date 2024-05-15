@@ -2,9 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import DataTable from 'react-data-table-component';
 import useAxiosBase from '../Hooks/useAxiosBase';
 import Skeleton from 'react-loading-skeleton';
+import { useContext } from 'react';
+import { AuthContext } from '../Providers/AuthProvider';
 
 const FeaturedBlogs = () => {
   const axiosBase = useAxiosBase();
+  const { loading } = useContext(AuthContext);
 
   const { data, isError, isLoading } = useQuery({
     queryKey: 'featuredBlogs',
@@ -13,7 +16,7 @@ const FeaturedBlogs = () => {
     }
   });
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return (
       <div className="mt-10">
         <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">

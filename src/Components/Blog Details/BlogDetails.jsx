@@ -7,7 +7,7 @@ import Comment from './Comment';
 import Skeleton from 'react-loading-skeleton';
 
 const BlogDetails = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const { id } = useParams();
     const axiosBase = useAxiosBase();
     const queryClient = useQueryClient();
@@ -26,7 +26,7 @@ const BlogDetails = () => {
         }
     });
 
-    if (isBlogLoading || isCommentsLoading) {
+    if (isBlogLoading || isCommentsLoading || loading) {
         return (
             <div className="p-4">
                 <Skeleton height={200} />
