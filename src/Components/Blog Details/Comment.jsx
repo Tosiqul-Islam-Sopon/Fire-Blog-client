@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const Comment = ({ commentOb }) => {
-    // console.log(commentOb);
+
     const { comment, userName, userImage } = commentOb;
     return (
         <div className="border-b border-gray-300 py-2">

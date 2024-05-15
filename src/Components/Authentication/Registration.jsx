@@ -39,8 +39,7 @@ const Registration = () => {
             createUser(email, password)
                 .then(() => {
                     setNameAndPhoto(name, url)
-                        .then(res => {
-                            console.log(res);
+                        .then(() => {
                             Swal.fire({
                                 position: "center",
                                 icon: "success",
@@ -51,8 +50,8 @@ const Registration = () => {
                             });
                             navigate(location?.state ? location.state : "/");
                         })
-                        .catch(error => {
-                            console.log(error);
+                        .catch(() => {
+                            // ""(error);
                         })
                 })
                 .catch(error => {

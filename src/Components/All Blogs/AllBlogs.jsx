@@ -11,7 +11,7 @@ const AllBlogs = () => {
 
     useEffect(() => {
         axiosBase.get(`/allBlogs?title=${searchText}&category=${category}`)
-        .then(data => setBlogs(data.data));
+            .then(data => setBlogs(data.data));
     }, [searchText, category, axiosBase]);
 
 

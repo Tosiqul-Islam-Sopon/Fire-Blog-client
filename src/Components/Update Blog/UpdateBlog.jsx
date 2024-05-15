@@ -4,6 +4,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
 
 const UpdateBlog = () => {
     const { user } = useContext(AuthContext);
@@ -11,7 +12,7 @@ const UpdateBlog = () => {
     const {id} = useParams();
     const navigate = useNavigate();
 
-    const {data, isLoading, isError, error} = useQuery({
+    const {data, isLoading, isError} = useQuery({
         queryKey: [`/blog/${id}`],
         queryFn: async() => {
             return await axiosBase.get(`/blog/${id}`)
@@ -20,19 +21,20 @@ const UpdateBlog = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center mt-10">
-                <div>
-                    <span className="loading loading-ring loading-xs"></span>
-                    <span className="loading loading-ring loading-sm"></span>
-                    <span className="loading loading-ring loading-md"></span>
-                    <span className="loading loading-ring loading-lg"></span>
+            <div className="mt-10">
+                <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">
+                <h2 className="text-2xl font-bold mb-5">Update Blog</h2>
+                </div>
+                <div className="px-3 mt-5">
+                    {[...Array(6)].map((_, index) => (
+                        <Skeleton key={index} height={20} />
+                    ))}
                 </div>
             </div>
         );
     }
 
     if (isError) {
-        console.log(error);
         return <h1 className="text-4xl">Error</h1>;
     }
 

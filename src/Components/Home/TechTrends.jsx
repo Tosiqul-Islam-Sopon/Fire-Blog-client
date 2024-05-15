@@ -1,26 +1,40 @@
 import useAxiosBase from "../Hooks/useAxiosBase";
 import { motion } from 'framer-motion';
 import { useQuery } from "@tanstack/react-query";
-import Skeleton from "react-loading-skeleton";
+import BlogCardSkeleton from "./BlogCardSkeleton";
 
 const TechTrends = () => {
     const axiosBase = useAxiosBase();
-    // const [techTrends, setTechTrends] = useState([]);
 
 
-    const {data, isLoading, isError, error} = useQuery({
+    const { data, isLoading, isError } = useQuery({
         queryKey: ['techTrends'],
-        queryFn: async() =>{
+        queryFn: async () => {
             return await axiosBase.get("/techTrends");
         }
     });
 
     if (isLoading) {
-        return <Skeleton count={10} />;
+        return (
+            <div className="mt-10">
+                <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">
+                    <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+                        Tech Trends
+                    </h2>
+                    <p className="text-gray-600 mb-8">
+                        Stay updated with the latest tech trends that are shaping the future of technology.
+                    </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 mt-5">
+                    {[...Array(6)].map((_, index) => (
+                        <BlogCardSkeleton key={index} />
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     if (isError) {
-        console.log(error);
         return <h1 className="text-4xl">Error</h1>;
     }
 

@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-import Skeleton from "react-loading-skeleton";
+import BlogCardSkeleton from "../Home/BlogCardSkeleton";
 
 const Wishlist = () => {
     const { user } = useContext(AuthContext);
@@ -13,7 +13,7 @@ const Wishlist = () => {
 
     const axiosBase = useAxiosBase();
 
-    const { data, isError, isLoading, error } = useQuery({
+    const { data, isError, isLoading } = useQuery({
         queryKey: ['latestBlogs'],
         queryFn: async () => {
             return await axiosBase.get(`/wishlists/${user?.email}`)
@@ -28,13 +28,22 @@ const Wishlist = () => {
     }, [data]);
 
     if (isLoading) {
-        return <>
-            <Skeleton count={10} />
-        </>
+        return (
+            <div className="mt-10">
+                <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">
+                    <h1 className="text-3xl font-bold mb-2">My Wishlist</h1>
+                    <p className="text-gray-600">Explore and manage your wishlist. Save your favorite blogs to read later.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 mt-5">
+                    {[...Array(3)].map((_, index) => (
+                        <BlogCardSkeleton key={index} />
+                    ))}
+                </div>
+            </div>
+        );
     }
-    
+
     if (isError) {
-        console.log(error);
         return <>
             <h1 className="text-4xl">Error</h1>
         </>

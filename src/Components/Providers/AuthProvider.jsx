@@ -42,17 +42,16 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             const userEmail = currentUser?.email || user?.email;
             const loggedUser = { email: userEmail };
-            // console.log(loggedUser);
             setUser(currentUser);
 
             if (currentUser) {
                 axiosBase.post('/jwt', loggedUser)
-                    // .then(res => console.log(res.data));
+                    .then(res => console.log(res.data));
             }
 
             else {
                 axiosBase.post('/logout', loggedUser)
-                    // .then(res => console.log(res.data));
+                    .then(res => console.log(res.data));
             }
 
             setLoading(false);

@@ -12,7 +12,7 @@ const DiscussionForum = () => {
     const queryClient = useQueryClient();
     const [newQuestion, setNewQuestion] = useState("");
 
-    const { data: questions = [], isLoading, isError, error } = useQuery({
+    const { data: questions = [], isLoading, isError } = useQuery({
         queryKey: ['questions'],
         queryFn: async () => {
             const response = await axiosBase.get("/questions");
@@ -52,11 +52,16 @@ const DiscussionForum = () => {
     };
 
     if (isLoading) {
-        return <Skeleton count={10} />;
+        return (
+            <div className="mt-10">
+                <div className="px-3 mt-5">
+                    <Skeleton count={5} />
+                </div>
+            </div>
+        );
     }
 
     if (isError) {
-        console.log(error);
         return <h1 className="text-4xl">Error</h1>;
     }
 

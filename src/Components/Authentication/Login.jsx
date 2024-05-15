@@ -16,7 +16,7 @@ const Login = () => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        // console.log(email, password);
+        
         logIn(email, password)
             .then(() => {
                 Swal.fire({
@@ -35,7 +35,6 @@ const Login = () => {
                     text: `${error.message}`,
                     icon: "error"
                 });
-                // console.error(error.message);
             })
     }
 

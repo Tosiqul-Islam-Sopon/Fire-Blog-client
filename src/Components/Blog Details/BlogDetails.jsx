@@ -4,47 +4,44 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { AuthContext } from '../Providers/AuthProvider';
 import useAxiosBase from '../Hooks/useAxiosBase';
 import Comment from './Comment';
+import Skeleton from 'react-loading-skeleton';
 
 const BlogDetails = () => {
-    const { user, loading } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { id } = useParams();
     const axiosBase = useAxiosBase();
     const queryClient = useQueryClient();
 
-    const { data: blogData, isError: isBlogError, error: blogError, isLoading: isBlogLoading } = useQuery({
+    const { data: blogData, isError: isBlogError, isLoading: isBlogLoading } = useQuery({
         queryKey: [`blog${id}`],
         queryFn: async () => {
             return await axiosBase.get(`/blog/${id}`);
         }
     });
 
-    const { data: commentsData, isError: isCommentsError, error: commentsError, isLoading: isCommentsLoading } = useQuery({
+    const { data: commentsData, isError: isCommentsError, isLoading: isCommentsLoading } = useQuery({
         queryKey: [`comments${id}`],
         queryFn: async () => {
             return await axiosBase.get(`/comments/${id}`);
         }
     });
 
-    if (isBlogLoading || isCommentsLoading || loading) {
+    if (isBlogLoading || isCommentsLoading) {
         return (
-            <div className="flex justify-center items-center mt-10">
-                <div>
-                    <span className="loading loading-ring loading-xs"></span>
-                    <span className="loading loading-ring loading-sm"></span>
-                    <span className="loading loading-ring loading-md"></span>
-                    <span className="loading loading-ring loading-lg"></span>
-                </div>
+            <div className="p-4">
+                <Skeleton height={200} />
+                <Skeleton count={2} />
             </div>
         );
     }
 
     if (isBlogError) {
-        console.log(blogError);
+        // ""(blogError);
         return <h1 className="text-4xl">Error</h1>;
     }
 
     if (isCommentsError) {
-        console.log(commentsError);
+        // ""(commentsError);
         return <h1 className="text-4xl">Error</h1>;
     }
 
@@ -65,7 +62,7 @@ const BlogDetails = () => {
                 queryClient.invalidateQueries([`comments${id}`]);
             }
         } catch (error) {
-            console.log(error);
+            // ""(error);
         }
     };
 

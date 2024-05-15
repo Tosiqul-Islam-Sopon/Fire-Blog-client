@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import DataTable from 'react-data-table-component';
-import Skeleton from 'react-loading-skeleton';
 import useAxiosBase from '../Hooks/useAxiosBase';
+import Skeleton from 'react-loading-skeleton';
 
 const FeaturedBlogs = () => {
   const axiosBase = useAxiosBase();
 
-  const { data, isError, isLoading, error } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: 'featuredBlogs',
     queryFn: async () => {
       return await axiosBase.get("/allBlogs");
@@ -14,11 +14,19 @@ const FeaturedBlogs = () => {
   });
 
   if (isLoading) {
-    return <Skeleton count={10} />;
+    return (
+      <div className="mt-10">
+        <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">
+          <h1 className="text-3xl font-bold mb-4 text-center my-3">Top 10 Blogs</h1>
+        </div>
+        <div className="grid px-3 mt-5">
+          <Skeleton count={5} />
+        </div>
+      </div>
+    );
   }
 
   if (isError) {
-    console.log(error);
     return <h1 className="text-4xl">Error</h1>;
   }
 
@@ -27,7 +35,7 @@ const FeaturedBlogs = () => {
   const columns = [
     {
       name: 'S.I.',
-      selector: (_, index) => index+1,
+      selector: (_, index) => index + 1,
     },
     {
       name: 'Blog Title',

@@ -30,13 +30,19 @@ const Replies = () => {
     });
 
     if (questionLoading || replyLoading) {
-        return <Skeleton count={10} />;
-      }
-    
-      if (questionError || replyError) {
-        // console.log(error);
+        return (
+            <div className="mt-10">
+
+                <div className="px-3 mt-5">
+                    <Skeleton count={5} />
+                </div>
+            </div>
+        );
+    }
+
+    if (questionError || replyError) {
         return <h1 className="text-4xl">Error</h1>;
-      }
+    }
 
     const handleReply = () => {
         if (newReply.trim() === "") return;
