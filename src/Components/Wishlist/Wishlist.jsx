@@ -1,31 +1,29 @@
 import useAxiosBase from "../Hooks/useAxiosBase";
 import BlogCard from "../Home/BlogCard";
 import Swal from "sweetalert2";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import BlogCardSkeleton from "../Home/BlogCardSkeleton";
 
 const Wishlist = () => {
     const { user, loading } = useContext(AuthContext);
 
-    const [wishlists, setWishlists] = useState([]);
-
     const axiosBase = useAxiosBase();
+    const queryClient = useQueryClient();
 
-    const { data, isError, isLoading } = useQuery({
-        queryKey: ['latestBlogs'],
+    const { data: wishlists, isError, isLoading } = useQuery({
+        queryKey: ['latestBlogs', user?.email],
         queryFn: async () => {
-            return await axiosBase.get(`/wishlists/${user?.email}`)
+            const response = await axiosBase.get(`/wishlists/${user?.email}`);
+            return response.data;
         },
         enabled: !!user?.email,
+        initialData: () => queryClient.getQueryData(['latestBlogs', user?.email]) || [],
+        onSuccess: (data) => {
+            queryClient.setQueryData(['latestBlogs', user?.email], data);
+        },
     });
-
-    useEffect(() => {
-        if (data) {
-            setWishlists(data.data);
-        }
-    }, [data]);
 
     if (isLoading || loading) {
         return (
@@ -44,9 +42,11 @@ const Wishlist = () => {
     }
 
     if (isError) {
-        return <>
-            <h1 className="text-4xl">Error</h1>
-        </>
+        return (
+            <div>
+                <h1 className="text-4xl">Error</h1>
+            </div>
+        );
     }
 
     const handleRemoveWishlist = (id) => {
@@ -61,6 +61,9 @@ const Wishlist = () => {
                         showConfirmButton: false,
                         timer: 2500
                     });
+                    queryClient.setQueryData(['latestBlogs', user?.email], oldData => 
+                        oldData.filter(blog => blog._id !== id)
+                    );
                 }
             })
             .catch(error => {
@@ -70,12 +73,9 @@ const Wishlist = () => {
                     title: `Blog Remove failed`,
                     text: `${error?.message}`,
                     showConfirmButton: true,
-                    // timer: 1500
                 });
             });
-        const remaining = wishlists.filter(blog => blog._id !== id);
-        setWishlists(remaining);
-    }
+    };
 
     return (
         <div>
@@ -88,7 +88,7 @@ const Wishlist = () => {
                     wishlists.map(blog => <BlogCard
                         key={blog._id}
                         blog={blog}
-                        handleRemoveWishlist={handleRemoveWishlist}></BlogCard>)
+                        handleRemoveWishlist={handleRemoveWishlist} />)
                 }
             </div>
         </div>

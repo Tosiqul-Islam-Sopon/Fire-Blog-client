@@ -26,10 +26,11 @@ const item = {
 
 const RecentBlogs = () => {
     const axiosBase = useAxiosBase();
-    const { data, isError, isLoading } = useQuery({
+    const { data: blogs = [], isError, isLoading } = useQuery({
         queryKey: ['latestBlogs'],
         queryFn: async () => {
-            return await axiosBase.get("/latestBlogs")
+            const response = await axiosBase.get("/latestBlogs");
+            return response.data;
         }
     });
 
@@ -57,7 +58,7 @@ const RecentBlogs = () => {
         );
     }
 
-    const blogs = data.data;
+    // const blogs = data.data;
     return (
         <div className="mt-10">
             <div className="lg:w-3/4 p-3 lg:p-0 mx-auto text-center">

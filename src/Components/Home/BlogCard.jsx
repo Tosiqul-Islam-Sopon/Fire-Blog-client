@@ -19,6 +19,17 @@ const BlogCard = ({ blog, handleRemoveWishlist }) => {
     const wishlistUserImg = user?.photoURL;
 
     const handleAddWishlist = () => {
+
+        if (!user){
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: `Please Login to add Wishlist`,
+                showConfirmButton: true,
+            });
+            return;
+        }
+
         const wishlist = {
             blogId: _id, title, img, shortDescription, category, longDescription, uploadDateTime, uploaderName, uploaderEmail, uploaderImg, wishlistUserName, wishlistUserEmail, wishlistUserImg
         }
