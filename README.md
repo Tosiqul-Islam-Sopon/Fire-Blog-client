@@ -22,3 +22,28 @@ Visit the live site: [Fire Blog](https://fireblog-e3426.web.app)
 - **Authentication**: Firebase Auth
 - **Hosting**: Firebase and Vercel
 - **Other Libraries**: Tanstack Table, Tanstack Query
+
+## Steps to Clone and Run the Project Locally
+To clone and run the Fire-Blog project locally, follow these steps:
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/Tosiqul-Islam-Sopon/Fire-Blog-client.git
+2. **Install dependencies for the client:**
+   ```sh
+   cd client
+   npm install
+3. **Clone server-side repository:**
+   ```sh
+   git clone https://github.com/Tosiqul-Islam-Sopon/Fire-Blog-server.git
+4. **Install dependencies for the server:**
+   ```sh
+   cd server
+   npm install
+5. **Run the client and server:**
+   ```sh
+   # In the client directory
+   nodemon index.js
+
+   # In the server directory
+   npm run dev
